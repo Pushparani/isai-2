@@ -233,9 +233,11 @@ width="150" height="175" border="0"></a>
     playString = "/isai/music?action=playRssSong" + artist;
 } 
 else if ("playlist1".equalsIgnoreCase(userAction)) { 
+	session.setAttribute("artists1", null);
     display = moviesearch;
     playString = "/isai/music?action=getSongs" + moviesearch;
-}else if ("playlist1".equalsIgnoreCase(userAction)) { 
+}else if ("playlist1".equalsIgnoreCase(userAction)) {
+	session.setAttribute("artists1", null);
 	display = numbmoviesearch;
     playString = "/isai/music?action=getSongs" + numbmoviesearch;
 
@@ -300,6 +302,7 @@ else if ("playlist1".equalsIgnoreCase(userAction)) {
     <input type="submit" name="action" value="Search & Listen" />
 
 </form>
+
 <br><br>
 <c:forEach var="item" items="${sessionScope.artists1}">
 <a href="/isai/songs/radio/index.jsp?action=playlist1&moviesearch=<c:out value="${item}" />"><c:out value="${item}" /></a><br>
