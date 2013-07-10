@@ -9,6 +9,7 @@ import org.apache.commons.fileupload.FileUploadException;
 import java.util.Iterator;
 
 import javax.mail.Session;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -29,6 +30,8 @@ import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.apache.log4j.Logger;
+
+import com.sun.mail.handlers.text_html;
 
 import javax.servlet.ServletRequest;
   
@@ -68,9 +71,24 @@ public class FileUploadServlet extends HttpServlet {
 		  
 		// TODO Auto-generated method stub
 		 // checks if the request actually contains upload file
-	
-
-	if (!ServletFileUpload.isMultipartContent(request)) {
+	PrintWriter out = response.getWriter();
+	response.setContentType("text/html");
+	String action = request.getParameter("action");
+	if("home".equalsIgnoreCase(action))
+	{
+		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/admin/admin.jsp");
+		rd.forward(request, response);
+		
+	}
+	else if("loginaction".equalsIgnoreCase(action))
+	{
+		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/admin/upload.jsp");
+		rd.forward(request, response);
+		
+	}
+	else if("uploadaction".equalsIgnoreCase(action))
+	{
+		if (!ServletFileUpload.isMultipartContent(request)) {
             // if not, we stop here
             PrintWriter writer = response.getWriter();
             writer.println("Error: Form must has enctype=multipart/form-data.");
@@ -146,6 +164,13 @@ public class FileUploadServlet extends HttpServlet {
         getServletContext().getRequestDispatcher("/message.jsp").forward(
                 request, response);
         
+	}
+	}
+	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		doPost(request, response);
+		
+		
+		
 	}
 	}
 	

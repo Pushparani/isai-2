@@ -40,7 +40,7 @@
   </servlet>
    <servlet-mapping>
     <servlet-name>FileUploadServlet</servlet-name>
-    <url-pattern>/uploadFile</url-pattern>
+    <url-pattern>/adminaction</url-pattern>
   </servlet-mapping>
   
   <servlet-mapping>

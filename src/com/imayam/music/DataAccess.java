@@ -1,5 +1,6 @@
 package com.imayam.music;
 import java.util.*;
+import java.io.OutputStream;
 import java.sql.Array;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -566,7 +567,7 @@ public final class DataAccess  {
 	}
 	public static void updatemonthCount() throws Exception {
 		Connection conn = getConnection();
-		String sql = "UPDATE music_catalog SET month_hitcount=0;";
+		String sql = "UPDATE music_catalog SET month_hitcount=0";
 		PreparedStatement ps = conn.prepareStatement(sql);
 		ps.execute();
 		ps.close();
@@ -575,12 +576,14 @@ public final class DataAccess  {
 		
 	}
 
+
+
 	private static Connection getConnection() throws Exception {
 
 		// Register the JDBC driver for MySQL.
 		Class.forName("com.mysql.jdbc.Driver");
-		Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/imayam2_phpbb1", "root","aasi");
-	//	Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/imayam2_phpbb1", "imayam2_aasi","aasi");
+//	Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/imayam2_phpbb1", "root","aasi");
+		Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/imayam2_phpbb1", "imayam2_aasi","aasi");
 	// Connection con =DriverManager.getConnection("jdbc:mysql://localhost:3306/imayam77_phpbb1","imayam77_phpbb1", "");
 
 		return con;

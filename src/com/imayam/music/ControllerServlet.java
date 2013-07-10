@@ -42,7 +42,7 @@ public class ControllerServlet extends HttpServlet {
 			throws ServletException, IOException {
 		try {
 			HttpSession session = request.getSession();
-		//	DataAccess.updatemonthCount();
+			session.setAttribute("artists1", null);
 			String action = request.getParameter("action");
 			logger.debug("action : " + action);
 		if ("reindex".equalsIgnoreCase(action)) {
@@ -51,7 +51,7 @@ public class ControllerServlet extends HttpServlet {
 					File myFiles = new File((new StringBuilder(
 					"/home/imayam2/public_html/songs/")).append(dir)
 					.toString());
-		//File myFiles = new File(new StringBuilder("C:/AASI_WORK/naveen/songs/").append(dir).toString());
+	//	File myFiles = new File(new StringBuilder("C:/Users/Pugazholi/git/isai/WebContent/songs/").append(dir).toString());
 					StringBuffer buffer = getFileNames(myFiles);
 				    PrintWriter out = response.getWriter();
 					response.setContentType("text/plain");
@@ -116,6 +116,7 @@ public class ControllerServlet extends HttpServlet {
 				session.setAttribute("artists1", null);
 				getPlayListRss(action, response);
 			} else if (action != null && action.indexOf("getSongs") > -1) {
+				session.setAttribute("artists1", null);
 				getSongs(action, response);
 				session.setAttribute("artists1", null);
 			} else if (action != null
