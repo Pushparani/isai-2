@@ -574,6 +574,26 @@ public final class DataAccess  {
 		
 		
 	}
+	public static ArrayList<GetMovie> getImage() throws Exception {
+		Connection conn = getConnection();	
+		ArrayList<GetMovie>getimage = new ArrayList<GetMovie>();
+		String sql = "select movie as m,image_file_name as i,sum(hitcount) as a,count(song) as b ,sum(hitcount)/count(song) as c from music_catalog group by movie desc limit 0,3";
+		Statement stmt = conn.createStatement();
+		ResultSet rs = stmt.executeQuery(sql);
+		while (rs.next()) {
+			String image = rs.getString("i");
+			String str1=image.replace("/home/imayam2/public_html/", "http://www.imayam.org/");
+			String movie = rs.getString("m");
+			GetMovie gv= new GetMovie();
+			gv.setMoviename(movie);
+			gv.setImage(str1);
+			getimage.add(gv);
+			}
+		conn.close();
+		return getimage;
+	}
+
+	
 
 	private static Connection getConnection() throws Exception {
 
