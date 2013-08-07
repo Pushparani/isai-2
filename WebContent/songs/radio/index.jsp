@@ -299,7 +299,95 @@ else if ("playlist1".equalsIgnoreCase(userAction)) {
  
     <input type="submit" name="action" value="Search & Listen" />
 
-</form>
+</form><script>
+	jQuery ($(function auto(){
+		$("#auto").autocomplete("/isai/auto");
+	}));
+</script>
+<br>
+<c:forEach var="item" items="${sessionScope.artists1}">
+<a href="/isai/songs/radio/index.jsp?action=playlist1&moviesearch=<c:out value="${item}" />"><c:out value="${item}" /></a><br>
+</c:forEach>
+<script language="JavaScript1.2">
+
+var variableslide=new Array()
+
+//variableslide[x]=["path to image", "OPTIONAL link for image", "OPTIONAL text description (supports HTML tags)"]
+
+//Slides:
+	<c:set var="count" value="0" scope="page" />
+
+<c:forEach items="${img1}" varStatus="status" var="slide"  begin="0" end="2">
+
+variableslide["<c:out value="${count}" />"]=["<c:out value="${slide.image}"/>","http://imayam.org/isai/songs/radio/index.jsp?action=playlist&artist="+"<c:out value="${slide.moviename}"/>", "<c:out value="${slide.moviename}"/>"]
+
+<c:set var="count" value="${count + 1}" scope="page"/>
+
+</c:forEach>
+//configure the below 3 variables to set the dimension/background color of the slideshow
+
+var slidewidth='300px' //set to width of LARGEST image in your slideshow
+var slideheight='170px' //set to height of LARGEST iamge in your slideshow, plus any text description
+var slidebgcolor='#F3F3F3'
+
+//configure the below variable to determine the delay between image rotations (in miliseconds)
+var slidedelay=3000
+
+////Do not edit pass this line////////////////
+
+var ie=document.all
+var dom=document.getElementById
+
+for (i=0;i<variableslide.length;i++){
+var cacheimage=new Image()
+cacheimage.src=variableslide[i][0]
+}
+
+var currentslide=0
+
+function rotateimages(){
+contentcontainer='<center>'
+if (variableslide[currentslide][1]!="")
+contentcontainer+='<a href="'+variableslide[currentslide][1]+'">'
+contentcontainer+='<img src="'+variableslide[currentslide][0]+'" border="0" vspace="3">'
+if (variableslide[currentslide][1]!="")
+contentcontainer+='</a>'
+contentcontainer+='</center>'
+if (variableslide[currentslide][2]!="")
+contentcontainer+=variableslide[currentslide][2]
+
+if (document.layers){
+crossrotateobj.document.write(contentcontainer)
+crossrotateobj.document.close()
+}
+else if (ie||dom)
+crossrotateobj.innerHTML=contentcontainer
+if (currentslide==variableslide.length-1) currentslide=0
+else currentslide++
+setTimeout("rotateimages()",slidedelay)
+}
+
+if (ie||dom)
+document.write('<div id="slidedom" style="width:'+slidewidth+';height:'+slideheight+'; background-color:'+slidebgcolor+'"></div>')
+
+function start_slider(){
+crossrotateobj=dom? document.getElementById("slidedom") : ie? document.all.slidedom : document.slidensmain.document.slidenssub
+if (document.layers)
+document.slidensmain.visibility="show"
+rotateimages()
+}
+
+if (ie||dom)
+start_slider()
+else if (document.layers)
+window.onload=start_slider
+
+</script>
+
+<ilayer id="slidensmain" width=&{slidewidth}; height=&{slideheight}; bgColor=&{slidebgcolor}; visibility=hide><layer id="slidenssub" width=&{slidewidth}; left=0 top=0></layer></ilayer>
+
+
+
 <br><br>
 <c:forEach var="item" items="${sessionScope.artists1}">
 <a href="/isai/songs/radio/index.jsp?action=playlist1&moviesearch=<c:out value="${item}" />"><c:out value="${item}" /></a><br>
